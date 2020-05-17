@@ -1,0 +1,14 @@
+.footer-fixed {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
+.pl-10 {
+    padding-left: 10px
+}
+.pr-10 {
+    padding-right: 10px
+}
+.footer {
+    padding: 1.5rem;
+}
