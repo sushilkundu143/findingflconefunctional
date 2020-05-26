@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 const Radio = React.memo(props => {
+    //console.log('data print:', props.data, props.radio.name, props.data === props.radio.name)
     return (
         <div className="field">
             <input

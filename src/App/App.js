@@ -18,7 +18,7 @@ class App extends Component {
     return (
         <Router>
           <Header />
-          <div className="container">
+          <div className="container mobileP">
             <h2 className="title is-2 has-text-centered mt-1">Finding Falcone!</h2>
             <Switch>
                 <Route exact path='/' component={Home} />

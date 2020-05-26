@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 const Select = React.memo(props => {
+   //console.log('select props:', props)
         const options = props.planets.map((planet, i) => <option key={i} value={planet.name} disabled={planet.disabled}>{planet.name}</option>)
         return (
             <div className="field">

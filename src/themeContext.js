@@ -13,8 +13,8 @@ class ThemeContextProvider extends PureComponent {
   }
   
 updateValue = (val) => {
+  console.log('update state with new value:', val)
   if(Object.keys(val).length > 0) {
-   // console.log('update state with new value:', val)
    this.setState(prevState => { 
      return {status: val}
     })
@@ -24,7 +24,7 @@ updateValue = (val) => {
     console.log('status:', this.state.status)
     return (
       <Provider value={{status: this.state.status, updateValue: this.updateValue}}>
-        {this.props.children}
+        {this.state && this.props.children}
       </Provider>
     );
   }
