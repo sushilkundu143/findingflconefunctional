@@ -17,7 +17,7 @@ function FormContainer(props) {
         } = props
         let planet = '',
             vehiclename = ''
-            
+
         const formitem = Array
             .apply(null, Array(4))
             .map(function (_, i) {
@@ -58,7 +58,9 @@ function FormContainer(props) {
                             <button
                                 className="button is-primary is-rounded"
                                 type="submit"
-                                disabled={disabled ? true : false}>
+                                disabled={disabled
+                                ? true
+                                : false}>
                                 Find Falcone
                             </button>
                         </div>

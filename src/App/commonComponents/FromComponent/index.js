@@ -46,36 +46,34 @@ class From extends PureComponent {
 
     handleChange = i => (event) => {
         const {name, value, type} = event.target
-       // console.log('data:', name, value, type, this.state.selectplanets[name], this.state.selectplanets);
         if (type === "select-one") {
-             this.setState(prevState => {
-                console.log('name:', prevState.selectplanets, prevState.selectplanets[name], value)
-                    if(prevState.selectplanets[name] !== undefined && prevState.selectplanets[name] !== value) {
-                        alert('You cannot change your previous selection')
-                    }
-                    return {
-                        selectplanets: {
-                            ...prevState.selectplanets,
-                            [name]: value
-                        },
-                        planets: [
-                            ...prevState
-                                .planets
-                                .map(x => {
-                                    if (x.name === value) {
-                                        x.disabled = true;
-                                    } else if (x.name === prevState.selectplanets[name]) {
-                                        x.disabled = false;
-                                    }
-                                    return x
-                                })
-                        ]
-                    }
-                }, () => {
-                    if (Object.keys(this.state.selectplanets).length === 4 && Object.keys(this.state.selectvehicles).length === 4) {
-                        this.setState({disabled: false})
-                    }
-                })
+            this.setState(prevState => {
+                if (prevState.selectplanets[name] !== undefined && prevState.selectplanets[name] !== value) {
+                    alert('You cannot change your previous selection')
+                }
+                return {
+                    selectplanets: {
+                        ...prevState.selectplanets,
+                        [name]: value
+                    },
+                    planets: [
+                        ...prevState
+                            .planets
+                            .map(x => {
+                                if (x.name === value) {
+                                    x.disabled = true;
+                                } else if (x.name === prevState.selectplanets[name]) {
+                                    x.disabled = false;
+                                }
+                                return x
+                            })
+                    ]
+                }
+            }, () => {
+                if (Object.keys(this.state.selectplanets).length === 4 && Object.keys(this.state.selectvehicles).length === 4) {
+                    this.setState({disabled: false})
+                }
+            })
         } else {
             this.setState(prevState => {
                 return {
