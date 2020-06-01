@@ -17,6 +17,7 @@ function FormContainer(props) {
         } = props
         let planet = '',
             vehiclename = ''
+        // as per the doc your need to select 4 planets to search. So, the array iteration is done 4 corresponding array items. This solution is more generic for this.
 
         const formitem = Array
             .apply(null, Array(4))
@@ -66,6 +67,7 @@ function FormContainer(props) {
                         </div>
                     </div>
                 </form>
+                
             </ErrorBoundary>
         )
     }

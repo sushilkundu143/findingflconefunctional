@@ -18,7 +18,10 @@ class From extends PureComponent {
     }
 
     componentDidMount() {
-        fetch(config.get('planets'))
+        const base = config.get('base')
+        const planetsApi = base + config.get('planets')
+        const vehiclesApi = base + config.get('vehicles')
+        fetch(planetsApi)
             .then(res => res.json())
             .then(result => {
                 this.setState({
@@ -30,7 +33,7 @@ class From extends PureComponent {
             }, (error) => {
                 console.log('error in fetch request', error)
             })
-        fetch(config.get('vehicles'))
+        fetch(vehiclesApi)
             .then(res => res.json())
             .then(result => {
                 this.setState({
@@ -113,9 +116,12 @@ class From extends PureComponent {
     }
 
     handleSubmit = context => async(event) => {
+        const base = config.get('base')
+        const tokenApi = base + config.get('token')
+        const findApi = base + config.get('find')
         event.preventDefault()
         console.log("submitting form")
-        const response = await fetch(config.get('token'), {
+        const response = await fetch(tokenApi, {
             method: 'POST',
             headers: config.get('headers')
         })
@@ -127,7 +133,7 @@ class From extends PureComponent {
                 vehicle_names: Object.values(this.state.selectvehicles)
             }
             console.log('request data:', data)
-            const responsedata = await fetch(config.get('find'), {
+            const responsedata = await fetch(findApi, {
                 method: 'POST',
                 headers: config.get('headers'),
                 body: JSON.stringify(data)
@@ -160,7 +166,7 @@ class From extends PureComponent {
                     selectvehicles={this.state.selectvehicles}
                     updatedRes={this.state.updatedRes}
                     disabled={this.state.disabled}
-                    context={context}/>)}
+                    context={context} />)}
             </ThemeContextConsumer>
         );
     }

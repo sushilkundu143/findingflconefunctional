@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-alert": "^7.0.1",
     "react-dom": "^16.13.1",
     "react-global-configuration": "^1.4.0",
     "react-router-dom": "^5.1.2",
