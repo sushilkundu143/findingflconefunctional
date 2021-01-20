@@ -13,7 +13,8 @@ function FormContainer(props) {
             handleChange,
             handleSubmit,
             selectplanets,
-            selectvehicles
+            selectvehicles,
+            isLoading
         } = props
         let planet = '',
             vehiclename = ''
@@ -37,7 +38,7 @@ function FormContainer(props) {
                             data-id={selectplanets && selectplanets.hasOwnProperty(planet)
                             ? selectplanets[planet]
                             : ''}/>
-                        <br/> {selectplanets.hasOwnProperty(planet) && vehicles.map((vehicle, index) => <Radio
+                            {selectplanets.hasOwnProperty(planet) && vehicles.map((vehicle, index) => <Radio
                             key={index}
                             radio={vehicle}
                             id={vehiclename + index}
@@ -46,7 +47,7 @@ function FormContainer(props) {
                             ? selectvehicles[vehiclename]
                             : ''}
                             handleChange={handleChange(i)}/>)}
-                        <br/> {selectvehicles[vehiclename] && <Duration selectvehicle={selectvehicles[vehiclename]} vehicles={vehicles}/>}
+                            {selectvehicles[vehiclename] && <Duration selectvehicle={selectvehicles[vehiclename]} vehicles={vehicles}/>}
                     </div>
                 )
             })
@@ -57,7 +58,8 @@ function FormContainer(props) {
                     <div className="column is-full">
                         <div className="control has-text-centered">
                             <button
-                                className="button is-primary is-rounded"
+                                className={"button is-primary is-rounded" + (isLoading ? " is-loading disabled": "")}
+
                                 type="submit"
                                 disabled={disabled
                                 ? true
@@ -67,7 +69,6 @@ function FormContainer(props) {
                         </div>
                     </div>
                 </form>
-                
             </ErrorBoundary>
         )
     }

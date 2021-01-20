@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react'
-import {ThemeContextConsumer} from "./../../../themeContext"
+import {Context} from "./../../../themeContext"
 import {withRouter} from "react-router-dom"
 import config from './../../../config'
 import FormContainer from './FromContainer'
@@ -13,7 +13,8 @@ class From extends PureComponent {
             selectplanets: {},
             selectvehicles: {},
             updatedRes: {},
-            disabled: true
+            disabled: true,
+            isLoading: null
         }
     }
 
@@ -31,7 +32,7 @@ class From extends PureComponent {
                     })
                 })
             }, (error) => {
-                console.log('error in fetch request', error)
+                alert('error in fetch request', error)
             })
         fetch(vehiclesApi)
             .then(res => res.json())
@@ -43,7 +44,7 @@ class From extends PureComponent {
                     })
                 })
             }, (error) => {
-                console.log('error in fetch request', error)
+                alert('error in fetch request', error)
             })
     }
 
@@ -116,11 +117,11 @@ class From extends PureComponent {
     }
 
     handleSubmit = context => async(event) => {
+        this.setState({isLoading: true});
         const base = config.get('base')
         const tokenApi = base + config.get('token')
         const findApi = base + config.get('find')
         event.preventDefault()
-        console.log("submitting form")
         const response = await fetch(tokenApi, {
             method: 'POST',
             headers: config.get('headers')
@@ -132,20 +133,17 @@ class From extends PureComponent {
                 planet_names: Object.values(this.state.selectplanets),
                 vehicle_names: Object.values(this.state.selectvehicles)
             }
-            console.log('request data:', data)
             const responsedata = await fetch(findApi, {
                 method: 'POST',
                 headers: config.get('headers'),
                 body: JSON.stringify(data)
             })
             const responsejson = await responsedata.json()
-            console.log('responsejson:', responsejson)
             if (Object.keys(responsejson).length > 0) {
                 this.setState({
                     updatedRes: responsejson
                 }, () => {
                     context.updateValue(this.state.updatedRes)
-                    console.log('Redirect to the result URL')
                     this
                         .props
                         .history
@@ -156,8 +154,10 @@ class From extends PureComponent {
     }
     render() {
         return (
-            <ThemeContextConsumer>
-                {context => (<FormContainer
+            <Context.Consumer>
+                {context => {
+                    console.log('----- context::', context);
+                    return (<FormContainer
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit(context)}
                     vehicles={this.state.vehicles}
@@ -166,8 +166,10 @@ class From extends PureComponent {
                     selectvehicles={this.state.selectvehicles}
                     updatedRes={this.state.updatedRes}
                     disabled={this.state.disabled}
+                    isLoading={this.state.isLoading}
                     context={context} />)}
-            </ThemeContextConsumer>
+                    }
+            </Context.Consumer>
         );
     }
 }

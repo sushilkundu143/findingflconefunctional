@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 const Radio = React.memo(props => {
-    //console.log('data print:', props.data, props.radio.name, props.data === props.radio.name)
     return (
         <div className="field">
             <input
@@ -21,7 +20,10 @@ const Radio = React.memo(props => {
 })
 
 Radio.propTypes = {
-    radio: PropTypes.object.isRequired
+    radio: PropTypes.shape({disabled: PropTypes.bool, name: PropTypes.string, total_no: PropTypes.number}).isRequired,
+    handleChange: PropTypes.func,
+    id: PropTypes.string,
+    name: PropTypes.string
 }
 
-export default Radio
+export default Radio;

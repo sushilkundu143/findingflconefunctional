@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {memo} from 'react'
+import PropTypes from 'prop-types'
 
-const Duration = React.memo(props => {
+const Duration = memo(props => {
     const filterObj = props.vehicles.filter(x => x.name === props.selectvehicle)[0]
     const {max_distance, speed } = filterObj
     const duration = max_distance / speed
@@ -10,5 +11,9 @@ const Duration = React.memo(props => {
             </div>
         )
 })
+
+Duration.propTypes = {
+    vehicles: PropTypes.array.isRequired
+}
 
 export default Duration

@@ -1,37 +1,28 @@
-import React, { PureComponent } from "react"
+import React, {createContext, useState} from "react"
 import PropTypes from 'prop-types'
 
+const Context = createContext()
+const {Provider} = Context;
 
-const { Provider, Consumer } = React.createContext()
+function ThemeContextProvider(props) {
+    const [status, setStatus] = useState({})
 
-class ThemeContextProvider extends PureComponent {
-  constructor(){
-    super()
-    this.state = {
-      status: {}
+    const updateValue = (val) => {
+        console.log('update state with new value:', val)
+        if (Object.keys(val).length > 0) {
+            setStatus(val);
+        }
     }
-  }
-  
-updateValue = (val) => {
-  console.log('update state with new value:', val)
-  if(Object.keys(val).length > 0) {
-   this.setState(prevState => { 
-     return {status: val}
-    })
-  }
-}
-  render() {
-    console.log('status:', this.state.status)
     return (
-      <Provider value={{status: this.state.status, updateValue: this.updateValue}}>
-        {this.state && this.props.children}
-      </Provider>
+        <Provider
+            value={{ status, updateValue}}>
+            {status && props.children}
+        </Provider>
     );
-  }
 }
 
 ThemeContextProvider.propTypes = {
-  status: PropTypes.object
+    status: PropTypes.object
 }
 
-export { ThemeContextProvider, Consumer as ThemeContextConsumer}
+export {ThemeContextProvider, Context}

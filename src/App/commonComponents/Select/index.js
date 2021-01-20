@@ -23,7 +23,10 @@ const Select = React.memo(props => {
 })
 
 Select.propTypes = {
-    planets: PropTypes.array.isRequired
+    planets: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    value: PropTypes.string
 }
 
 export default Select
